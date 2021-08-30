@@ -6,15 +6,28 @@ asdf() {
     shift
   fi
 
-  case "$command" in
+  case "${command}" in
+  "update")
+    echo "You don't want to update this way. This is a forked version of asdf the update call wont work"
+    echo "    Instead, rebase with the main repo"
+    exit 1
+    ;;
+
   "shell")
     # commands that need to export variables
     eval "$(asdf export-shell-version sh "$@")" # asdf_allow: eval
     ;;
+
   *)
     # forward other commands to asdf script
-    command asdf "$command" "$@"
-    ;;& # Resume to catch any other matches
+    command asdf "${command}" "$@"
+    ;;
+
+  esac
+
+
+  # Run post-command patches. Bash switch-case fallthrough and continue didn't seem to work in zsh
+  case "${command}" in
   "reshim")
     # After running 'asdf reshim' create symlinks
     target_dir="${HOME}/.local/bin"
@@ -34,7 +47,7 @@ asdf() {
                 echo "ERROR:  ${target} is already a symlink to '${current_source}'. Could not link to '${shim}'"
             fi
             continue
- 
+
         elif [[ -l "${target}" ]]; then
             # Existing symlink is broken. Remove it.
             rm "${target}"
