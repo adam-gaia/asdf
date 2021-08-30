@@ -1,7 +1,7 @@
 # [asdf](https://github.com/asdf-vm/asdf) (tweaked)
 This fork adds minor changs for my specific work flow. I doubt anyone else will find it useful.
 
-I use asdf exclusively to manage my language installs (rust, go, python, etc). I wanted to symlink all the asdf shims to a more standard location (`${HOME}/.local/bin`). I modified the asdf zsh/bash function to create the symlinks after a call to `asdf reshim`.
+I use asdf exclusively to manage my language installs (rust, go, python, etc). I wanted to symlink all the asdf shims to a more standard location (`/usr/local/bin`). I modified the asdf zsh/bash function to create the symlinks after a call to `asdf reshim`.
 
 After all this trouble, I'm starting to think asdf isn't quite the tool I'm looking for but it works for now ¯\\_(ツ)_/¯
 

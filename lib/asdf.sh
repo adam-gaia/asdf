@@ -30,34 +30,37 @@ asdf() {
   case "${command}" in
   "reshim")
     # After running 'asdf reshim' create symlinks
-    target_dir="${HOME}/.local/bin"
+    target_dir="/usr/local/bin"
     shims=($(find "${ASDF_USER_SHIMS}" -executable -type f))
 
     for shim in ${shims[@]}; do
-        base="$(basename "${shim}")"
-        target="${target_dir}/${base}"
+      base="$(basename "${shim}")"
+      target="${target_dir}/${base}"
 
-        # Check if target is already a symlink
-        if [[ -L "${target}" ]]; then
-            # Resolve the target and check if it maches what we want to link it to
-            current_source="$(realpath "${target}")"
-            if [[ "${current_source}" == "${shim}" ]]; then
-                echo "SUCCESS: ${shim} is already linked to ${target}"
-            else
-                echo "ERROR:  ${target} is already a symlink to '${current_source}'. Could not link to '${shim}'"
-            fi
-            continue
+      # Check if target is already a symlink
+      if [[ -L "${target}" ]]; then
 
-        elif [[ -e  "${target}" ]]; then
-            echo "ERROR: Symlink target ${target} already exists and is a valid file."
-            echo "    You should probably figure out how it was installed and remove it"
-            continue
-
-        else
-            # Existing symlink is broken. Remove it, but ask for permission
-            command rm -i "${target}"
-        fi
+        if [[ -e "${target}" ]]; then
+          # Resolve the target and check if it maches what we want to link it to
+          current_source="$(realpath "${target}")"
+          if [[ "${current_source}" == "${shim}" ]]; then
+            echo "SUCCESS: ${shim} is already linked to ${target}"
+          else
+            echo "ERROR:  ${target} is already a symlink to '${current_source}'. Could not link to '${shim}'"
+          fi
+          continue
         
+        else
+          # Existing symlink is broken. Remove it, but ask for permission
+          command rm -i "${target}"
+        fi
+
+      elif [[ -e  "${target}" ]]; then
+        echo "ERROR: Symlink target ${target} already exists and is a valid file."
+        echo "    You should probably figure out how it was installed and remove it"
+        continue
+      fi
+
         ln -s "${shim}" "${target}" && echo "SUCCESS: Linked ${target} to ${shim}" || echo "ERROR: Failed while linking ${target} to ${shim}"
     done
     ;;
