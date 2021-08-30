@@ -49,7 +49,7 @@ asdf() {
             echo "ERROR:  ${target} is already a symlink to '${current_source}'. Could not link to '${shim}'"
           fi
           continue
-        
+
         else
           # Existing symlink is broken. Remove it, but ask for permission
           command rm -i "${target}"
@@ -61,7 +61,7 @@ asdf() {
         continue
       fi
 
-        ln -s "${shim}" "${target}" && echo "SUCCESS: Linked ${target} to ${shim}" || echo "ERROR: Failed while linking ${target} to ${shim}"
+        sudo -p "[sudo] Sudo privlileges needed to creat a symlink in directory '${target_dir}': " ln -s "${shim}" "${target}" && echo "SUCCESS: Linked ${target} to ${shim}" || echo "ERROR: Failed while linking ${target} to ${shim}"
     done
     ;;
 
