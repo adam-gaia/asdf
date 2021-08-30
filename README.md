@@ -1,4 +1,15 @@
-# asdf [![Lint](https://github.com/asdf-vm/asdf/actions/workflows/lint.yml/badge.svg)](https://github.com/asdf-vm/asdf/actions/workflows/lint.yml) [![Tests](https://github.com/asdf-vm/asdf/actions/workflows/tests.yml/badge.svg)](https://github.com/asdf-vm/asdf/actions/workflows/tests.yml)
+# [asdf](https://github.com/asdf-vm/asdf) (tweaked)
+This fork adds minor changs for my specific work flow. I doubt anyone else will find it useful.
+
+I use asdf exclusively to manage my language installs (rust, go, python, etc). I wanted to symlink all the asdf shims to a more standard location (`${HOME}/.local/bin`). I modified the asdf zsh/bash function to create the symlinks after a call to `asdf reshim`.
+
+After all this trouble, I'm starting to think asdf isn't quite the tool I'm looking for but it works for now ¯\\_(ツ)_/¯
+
+
+
+# Original README
+
+## asdf [![Lint](https://github.com/asdf-vm/asdf/actions/workflows/lint.yml/badge.svg)](https://github.com/asdf-vm/asdf/actions/workflows/lint.yml) [![Tests](https://github.com/asdf-vm/asdf/actions/workflows/tests.yml/badge.svg)](https://github.com/asdf-vm/asdf/actions/workflows/tests.yml)
 
 **Manage multiple runtime versions with a single CLI tool, extendable via plugins** - [docs at asdf-vm.com](https://asdf-vm.github.io/asdf/)
 
