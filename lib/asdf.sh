@@ -10,7 +10,7 @@ asdf() {
   "update")
     echo "You don't want to update this way. This is a forked version of asdf the update call wont work"
     echo "    Instead, rebase with the main repo"
-    exit 1
+    return 1
     ;;
 
   "shell")
