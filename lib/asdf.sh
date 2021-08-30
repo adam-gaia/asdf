@@ -37,7 +37,7 @@ asdf() {
         base="$(basename "${shim}")"
         target="${target_dir}/${base}"
 
-        # Check if target is already a valid symlink
+        # Check if target is already a symlink
         if [[ -L "${target}" ]]; then
             # Resolve the target and check if it maches what we want to link it to
             current_source="$(realpath "${target}")"
@@ -48,14 +48,14 @@ asdf() {
             fi
             continue
 
-        elif [[ -l "${target}" ]]; then
-            # Existing symlink is broken. Remove it.
-            rm "${target}"
-
-        else
+        elif [[ -e  "${target}" ]]; then
             echo "ERROR: Symlink target ${target} already exists and is a valid file."
             echo "    You should probably figure out how it was installed and remove it"
             continue
+
+        else
+            # Existing symlink is broken. Remove it, but ask for permission
+            command rm -i "${target}"
         fi
         
         ln -s "${shim}" "${target}" && echo "SUCCESS: Linked ${target} to ${shim}" || echo "ERROR: Failed while linking ${target} to ${shim}"
