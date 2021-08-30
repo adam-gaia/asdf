@@ -31,9 +31,9 @@ asdf() {
   "reshim")
     # After running 'asdf reshim' create symlinks
     target_dir="${HOME}/.local/bin"
-    shims=$(find "${ASDF_BIN}" -executable)
+    shims=($(find "${ASDF_USER_SHIMS}" -executable -type f))
 
-    for x in ${shims[@]}; do
+    for shim in ${shims[@]}; do
         base="$(basename "${shim}")"
         target="${target_dir}/${base}"
 
